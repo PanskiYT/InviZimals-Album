@@ -36,17 +36,37 @@ echo 1. Wymień Invizimals.
 echo 2. Dodaj Invizimals.
 echo 3. Wychodzić
 echo.
-pause
+set /p option="Wprowadź opcję:> "
+if %option% == 1 ( call :Dodaj)
+if %option% == 3 ( call :Wychodzić)
 
-
+REM Funkcja wyjścia z programu
 :Wychodzić
 echo Do zobaczenia później %nick%. Teraz wystarczy nacisnąć klawisz, aby wyjść.
 pause
 exit
 
-
-
-
+:Dodaj
+set /p nameInvizimal="Wprowadź nazwę invizimal> "
+set /p lifeInvizimal="wejść w życie %nameInvizimal%> "
+set /p resistanceInvizimal="Wprowadź rezystancję %nameInvizimal%> "
+set /p rechageInvizimal="Wprowadź doładowanie%nameInvizimal%> "
+set /p attackInvizimal="wejść do ataku %nameInvizimal%> "
+set /p armorInvizimal="Wejdź do zbroi %nameInvizimal%> "
+set /p Save="Bezpieczne do nagrywania %nameInvizimal%? (1:Y/0:N)> "
+if %Save% == 1 (
+    echo %nameInvizimal%:%lifeInvizimal%:%resistanceInvizimal%:%rechageInvizimal%:%attackInvizimal%:%armorInvizimal% >> "%name%.txt"
+    echo "Pomyślnie zarejestrowano do " %nameInvizimal%.
+) else (
+    echo No se han guardado todos los datos de %nameInvizimal%.
+    goto :menu_glowne
+)
+set /p SaveAgain="Chcesz zarejestrować kolejnego Invizimala? (1:Y/0:N)> "
+if %SaveAgain% == 1 (
+goto :Dodaj
+) else (
+    goto :menu_glowne
+)
 
 
 REM Funkcja sprawdzania poprawności istnienia albumu
