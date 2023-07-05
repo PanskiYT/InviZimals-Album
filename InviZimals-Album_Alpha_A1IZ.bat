@@ -32,13 +32,17 @@ echo Powitanie %nick%
 REM Funkcja wyświetlania menu głównego
 :menu_glowne
 echo ########Indeks albumów########
-echo 1. Wymień Invizimals.
+echo 1. Zobacz album Invizimals.
 echo 2. Dodaj Invizimals.
 echo 3. Wychodzić
 echo.
 set /p option="Wprowadź opcję:> "
-if %option% == 1 ( call :Dodaj)
+if %option% == 1 ( call :Wymien)
+if %option% == 2 ( call :Dodaj)
 if %option% == 3 ( call :Wychodzić)
+cls
+goto :menu_glowne
+
 
 REM Funkcja wyjścia z programu
 :Wychodzić
@@ -58,7 +62,7 @@ if %Save% == 1 (
     echo %nameInvizimal%:%lifeInvizimal%:%resistanceInvizimal%:%rechageInvizimal%:%attackInvizimal%:%armorInvizimal% >> "%name%.txt"
     echo "Pomyślnie zarejestrowano do " %nameInvizimal%.
 ) else (
-    echo No se han guardado todos los datos de %nameInvizimal%.
+    echo Nie wszystkie dane zostały zapisane %nameInvizimal%.
     goto :menu_glowne
 )
 set /p SaveAgain="Chcesz zarejestrować kolejnego Invizimala? (1:Y/0:N)> "
@@ -94,3 +98,10 @@ else
     goto :uzytkownik
 )
 
+REM Funkcja przeglądania zawartości albumu
+:Wymien
+cls
+echo "zawartość albumu:"
+type "%name%.txt"
+pause
+goto :menu_glowne
